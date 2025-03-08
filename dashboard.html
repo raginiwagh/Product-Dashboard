@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>System Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 50px;
+        }
+        .container {
+            background: white;
+            padding: 20px;
+            display: inline-block;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        h1 {
+            color: #333;
+        }
+        input, select {
+            padding: 10px;
+            font-size: 18px;
+            margin: 5px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 18px;
+            margin: 5px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background-color: #4CAF50;
+            color: white;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        .dashboard {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Login Page</h1>
+        <input type="text" id="username" placeholder="Enter Username">
+        <input type="password" id="password" placeholder="Enter Password">
+        <br>
+        <button onclick="login()">Login</button>
+    </div>
+
+    <div class="container dashboard" style="display:none;">
+        <h1>Dashboard</h1>
+        <input type="text" id="search" placeholder="Search Products" onkeyup="searchProducts()">
+        <button onclick="addProduct()">Add Product</button>
+        <br>
+        <select id="filter" onchange="filterProducts()">
+            <option value="all">All</option>
+            <option value="electronics">Electronics</option>
+            <option value="fashion">Fashion</option>
+        </select>
+        <br>
+        <ul id="productList"></ul>
+        <br>
+        <button onclick="logout()">Logout</button>
+    </div>
+
+    <script>
+        function login() {
+            document.querySelector('.container').style.display = 'none';
+            document.querySelector('.dashboard').style.display = 'block';
+        }
+        
+        function logout() {
+            document.querySelector('.container').style.display = 'block';
+            document.querySelector('.dashboard').style.display = 'none';
+        }
+        
+        function addProduct() {
+            let product = prompt("Enter Product Name:");
+            if (product) {
+                let li = document.createElement("li");
+                li.textContent = product;
+                document.getElementById("productList").appendChild(li);
+            }
+        }
+        
+        function searchProducts() {
+            let search = document.getElementById("search").value.toLowerCase();
+            let products = document.querySelectorAll("#productList li");
+            products.forEach(product => {
+                product.style.display = product.textContent.toLowerCase().includes(search) ? "block" : "none";
+            });
+        }
+        
+        function filterProducts() {
+            let filter = document.getElementById("filter").value;
+            alert("Filter applied: " + filter);
+        }
+    </script>
+</body>
+</html>
